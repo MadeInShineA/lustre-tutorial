@@ -23,8 +23,9 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             gleam
-            erlang
-            rebar3
+            beamPackages.erlang
+            beamPackages.rebar3
+            bun
           ];
         };
       }
