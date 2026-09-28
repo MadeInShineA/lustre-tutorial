@@ -26,6 +26,8 @@ jobs:
 
       - run: nix develop --command gleam run -m lustre/dev build --minify=true
 
+      - run: cp index.html dist/index.html
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
