@@ -10,27 +10,27 @@ import gleam/list
 import lustre/effect.{type Effect}
 import rsvp
 
-type Model {
+pub type Model {
   Model(total: Int, cats: List(Cat))
 }
 
-type Cat {
+pub type Cat {
   Cat(id: String, url: String)
 }
 
-fn init(_args) -> #(Model, Effect(Message)) {
+pub fn init(_args) -> #(Model, Effect(Message)) {
   let model = Model(total: 0, cats: [])
 
   #(model, effect.none())
 }
 
-type Message {
+pub type Message {
   UserClickedAddCat
   UserClickedRemoveCat
   ApiReturnedCats(Result(List(Cat), rsvp.Error(String)))
 }
 
-fn update(model: Model, message: Message) -> #(Model, Effect(Message)) {
+pub fn update(model: Model, message: Message) -> #(Model, Effect(Message)) {
   case message {
     UserClickedAddCat -> #(Model(..model, total: model.total + 1), get_cat())
 
@@ -65,7 +65,7 @@ fn get_cat() -> Effect(Message) {
   rsvp.get(url, handler)
 }
 
-fn view(model: Model) -> Element(Message) {
+pub fn view(model: Model) -> Element(Message) {
   html.div([], [
     html.div([], [
       html.button([event.on_click(UserClickedAddCat)], [html.text("Add cat")]),
